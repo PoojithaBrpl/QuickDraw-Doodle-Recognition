@@ -92,3 +92,27 @@ for result in results:
         f"Accuracy: {result['Accuracy']:.4f}    "
         f"Training Time: {result['Training Time (s)']:.2f}s"
     )
+
+# Show the most confused class pairs for the best model (RBF SVM)
+print("\nRBF SVM - Most Confused Class Pairs")
+print("===================================")
+
+cm = confusion_matrix(y_test, models["RBF SVM"].predict(X_test))
+
+confused_pairs = []
+
+for i in range(len(CLASSES)):
+    for j in range(len(CLASSES)):
+        if i != j and cm[i, j] > 0:
+            confused_pairs.append(
+                (cm[i, j], CLASSES[i], CLASSES[j])
+            )
+
+confused_pairs.sort(reverse=True)
+
+for count, actual, predicted in confused_pairs[:10]:
+    print(
+        f"Actual: {actual:<10} "
+        f"Predicted as: {predicted:<10} "
+        f"Count: {count}"
+    )
