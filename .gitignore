@@ -1,2 +1,5 @@
 # QuickDraw dataset files
 data/*.npy
+
+# Python cache
+src/__pycache__/
